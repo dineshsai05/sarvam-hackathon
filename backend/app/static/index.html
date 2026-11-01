@@ -46,10 +46,10 @@ f.addEventListener('submit',async e=>{
   try{
     const r=await fetch('/leads',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({name:name.value.trim(),phone:phone.value.trim(),consent:consent.checked})});
-    const d=await r.json();
-    if(!r.ok){err.textContent=Array.isArray(d.detail)?d.detail.map(x=>x.msg).join('; '):JSON.stringify(d.detail);btn.disabled=false;btn.textContent='Call me now';return;}
+    const txt=await r.text(); let d; try{d=JSON.parse(txt);}catch(_){d=null;}
+    if(!r.ok||!d){err.textContent='Server error '+r.status+': '+(d&&d.detail?(Array.isArray(d.detail)?d.detail.map(x=>x.msg).join('; '):JSON.stringify(d.detail)):txt.slice(0,160));btn.disabled=false;btn.textContent='Call me now';return;}
     document.getElementById('card').innerHTML='<div class="ok"><strong>Done, '+name.value.trim()+'.</strong><br>Your phone will ring from +91 80642 69894 in a few seconds. Pick up and tell the advisor which language you prefer.</div>';
-  }catch(x){err.textContent='Could not reach the server. Please try again.';btn.disabled=false;btn.textContent='Call me now';}
+  }catch(x){err.textContent='Could not reach the server ('+x+'). Please try again in a few seconds.';btn.disabled=false;btn.textContent='Call me now';}
 });
 </script>
 </body>
