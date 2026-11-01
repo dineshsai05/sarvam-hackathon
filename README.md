@@ -8,6 +8,28 @@ land in a database as a structured lead summary.
 
 Built with Next.js, FastAPI, PostgreSQL and Sarvam Voice Agents with Knowledge Bases.
 
+## Try it (live)
+
+| | URL |
+|---|---|
+| API | https://insurewise-api.onrender.com |
+| Interactive API docs (Swagger) | https://insurewise-api.onrender.com/docs |
+| Health | https://insurewise-api.onrender.com/health |
+
+Request a call from the AI advisor to your own Indian mobile number (you must consent to be called):
+
+```bash
+curl -X POST https://insurewise-api.onrender.com/leads \
+  -H 'Content-Type: application/json' \
+  -d '{"name": "Your Name", "phone": "+919876543210", "consent": true}'
+```
+
+The agent calls within a few seconds from +91 80642 69894, asks which language you prefer (English,
+Hindi, Telugu or Tamil), and advises on private car insurance. After the call, the structured
+summary is visible at `GET https://insurewise-api.onrender.com/leads/<lead_id>`.
+
+The API runs on Render's free tier and sleeps when idle: the first request may take ~30 s.
+
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/dineshsai05/sarvam-hackathon)
 
 ## How it works
