@@ -1,6 +1,7 @@
+import os
 from functools import lru_cache
 
-from pydantic import Field
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -20,13 +21,31 @@ class Settings(BaseSettings):
         "https://apps.sarvam.ai/api/outbounds", alias="SARVAM_OUTBOUNDS_BASE_URL"
     )
 
-    # Webhook
-    public_base_url: str = Field(..., alias="PUBLIC_BASE_URL")
+    # Webhook. On Render, PUBLIC_BASE_URL may be omitted: RENDER_EXTERNAL_URL is injected automatically.
+    public_base_url: str = Field(
+        default_factory=lambda: os.environ.get("RENDER_EXTERNAL_URL", ""), alias="PUBLIC_BASE_URL"
+    )
     webhook_token: str = Field(..., alias="WEBHOOK_TOKEN")
 
     # DB / CORS
     database_url: str = Field(..., alias="DATABASE_URL")
     cors_origins: str = Field("http://localhost:3000", alias="CORS_ORIGINS")
+
+    @field_validator("database_url")
+    @classmethod
+    def _sqlalchemy_scheme(cls, v: str) -> str:
+        """Managed Postgres (Render, Heroku, Railway) hands out postgres:// URLs; SQLAlchemy+psycopg needs postgresql+psycopg://."""
+        for prefix in ("postgres://", "postgresql://"):
+            if v.startswith(prefix):
+                return "postgresql+psycopg://" + v[len(prefix):]
+        return v
+
+    @field_validator("public_base_url")
+    @classmethod
+    def _public_base_url_required(cls, v: str) -> str:
+        if not v:
+            raise ValueError("Set PUBLIC_BASE_URL (or run on Render, which sets RENDER_EXTERNAL_URL)")
+        return v
 
     @property
     def cors_origin_list(self) -> list[str]:

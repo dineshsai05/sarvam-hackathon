@@ -1,4 +1,16 @@
-# AI-Powered Motor Insurance Advisor
+# InsureWise: AI-Powered Motor Insurance Advisor
+
+InsureWise is a voice AI motor insurance advisor for India. A customer leaves their number on the
+website, and a Sarvam Voice Agent calls back in their chosen language (English, Hindi, Telugu or
+Tamil), learns about their car and budget, answers coverage questions from real insurer policy
+documents, and recommends a suitable policy. After the call, the transcript and extracted details
+land in a database as a structured lead summary.
+
+Built with Next.js, FastAPI, PostgreSQL and Sarvam Voice Agents with Knowledge Bases.
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/dineshsai05/sarvam-hackathon)
+
+## How it works
 
 Website signup → Sarvam Voice Agents instant outbound call → post-call webhook stored in Postgres.
 
@@ -71,6 +83,21 @@ Define variables with the same names on the agent in the Sarvam dashboard so the
 reference them, and add output variables (vehicle, budget, policies_discussed, next_step, …).
 Whatever the agent fills in comes back in the webhook as `final_agent_variables` and is stored on
 `call_attempts.final_agent_variables`.
+
+## Deploy for a persistent URL (Render, free tier)
+
+1. Click the **Deploy to Render** button above (or New → Blueprint → this repo). `render.yaml`
+   creates the `insurewise-api` web service and an `insurewise-db` Postgres with all Sarvam values
+   pre-filled except the key.
+2. When prompted, enter `SARVAM_API_KEY`. Everything else is already set; the webhook URL is
+   derived from Render's own `RENDER_EXTERNAL_URL`.
+3. After the first deploy, your API lives at `https://insurewise-api.onrender.com` (or similar).
+   Check `https://<your-service>.onrender.com/health`.
+4. Deploy the website on Vercel: import the repo, set **Root Directory** to `web` and
+   `NEXT_PUBLIC_API_URL` to the Render URL. Then add the Vercel URL to `CORS_ORIGINS` on Render.
+
+Free Render services sleep after 15 minutes idle; the first request after that takes ~30 s. Open the
+health URL once before a demo.
 
 ## 2. Website
 
