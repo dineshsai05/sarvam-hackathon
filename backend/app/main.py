@@ -1,9 +1,11 @@
 import logging
+from pathlib import Path
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 
 from fastapi import Depends, FastAPI, HTTPException, Query, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
@@ -33,6 +35,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+_STATIC = Path(__file__).parent / "static"
+
+
+@app.get("/", include_in_schema=False)
+def signup_page() -> FileResponse:
+    """Public signup page: name + mobile -> instant call. Served from the API so one URL is the whole demo."""
+    return FileResponse(_STATIC / "index.html")
 
 
 @app.get("/health")
