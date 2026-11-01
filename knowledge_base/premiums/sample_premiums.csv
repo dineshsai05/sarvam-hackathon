@@ -1,0 +1,17 @@
+note,All premiums below are INDICATIVE SAMPLES for illustration only. They are not quotes. Actual premiums depend on the insurer, city, IDV, NCB, add-ons and vehicle details.
+segment,example_models,engine_cc_band,car_age_years,approx_idv_inr,third_party_only_annual_inr,comprehensive_basic_annual_inr,comprehensive_with_zero_dep_annual_inr,comprehensive_with_zero_dep_engine_rsa_annual_inr
+hatchback_small,"Alto, Kwid, S-Presso",up_to_1000cc,1,350000,2094,6500,8000,9000
+hatchback_small,"Alto, Kwid, S-Presso",up_to_1000cc,3,260000,2094,5200,6400,7200
+hatchback_small,"Alto, Kwid, S-Presso",up_to_1000cc,6,170000,2094,4300,not_offered,not_offered
+hatchback_premium,"Swift, i20, Baleno, Altroz",1000_to_1500cc,1,650000,3416,9500,12000,13500
+hatchback_premium,"Swift, i20, Baleno, Altroz",1000_to_1500cc,3,480000,3416,7800,9800,11000
+hatchback_premium,"Swift, i20, Baleno, Altroz",1000_to_1500cc,6,320000,3416,6300,not_offered,not_offered
+sedan_compact,"Dzire, Amaze, Aura",1000_to_1500cc,1,750000,3416,10500,13200,14800
+sedan_compact,"Dzire, Amaze, Aura",1000_to_1500cc,3,550000,3416,8600,10700,12000
+compact_suv,"Nexon, Brezza, Venue, Sonet",1000_to_1500cc,1,1000000,3416,13000,16500,18500
+compact_suv,"Nexon, Brezza, Venue, Sonet",1000_to_1500cc,3,750000,3416,10800,13500,15000
+midsize_suv,"Creta, Seltos, Grand Vitara",1000_to_1500cc,1,1400000,3416,17000,21500,24000
+midsize_suv,"Creta, Seltos, Grand Vitara",1000_to_1500cc,3,1050000,3416,14000,17500,19500
+large_suv,"XUV700, Harrier, Fortuner",above_1500cc,1,2200000,7897,28000,35000,39000
+large_suv,"XUV700, Harrier, Fortuner",above_1500cc,3,1650000,7897,23000,28500,32000
+electric_hatch_or_suv,"Tiago EV, Nexon EV, Punch EV",electric,1,1300000,2904,19000,24000,26500
